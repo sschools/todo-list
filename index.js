@@ -13,7 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
 const todos = [
-  {name: "Wash the car", complete: false}
+  {name: "Wash the car", complete: false},
+  {name: "Paint House", complete: true},
+  {name: "wash dog", complete: false}
 ];
 
 app.get("/", function (request, respond) {

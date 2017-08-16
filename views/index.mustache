@@ -7,18 +7,29 @@
   </head>
   <body>
     <header id="header">
-      <h2>To Do List</h2>
+      <h2>To Do List:</h2>
     </header>
     <main>
       <div class = "container">
         {{#todos}}
-          <p>{{complete}} {{name}}</p>
+          {{^complete}}
+          <p><button type="button" name="{{name}}">Mark Complete</button>{{name}}</p>
+          {{/complete}}
         {{/todos}}
       </div>
       <form action="/" method="post">
         <input type="text" name="todo" placeholder="Post a New ToDo Item"/>
         <button type="submit">Submit</button>
       </form>
+      <div class = "done">
+        <h3>Completed Items:</h3>
+        {{#todos}}
+          {{#complete}}
+          <p class="completed-items">{{name}}</p>
+          {{/complete}}
+        {{/todos}}
+      </div>
     </main>
+    <script src="/main.js"></script>
   </body>
 </html>
