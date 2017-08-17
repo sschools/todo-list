@@ -13,16 +13,20 @@
       <div class = "container">
         {{#todos}}
           {{^complete}}
-          <p><button type="button" name="{{name}}">Mark Complete</button>{{name}}</p>
+          <form action="/change/{{name}}" method="post" class="todoForm">
+            <input type="radio" name="done" value="{{name}}"/>
+            <label for="done">{{name}}</label>
+            <button type="submit">Done</button>
+          </form>
           {{/complete}}
         {{/todos}}
       </div>
-      <form action="/" method="post">
+      <form action="/" method="post" id="addItem">
         <input type="text" name="todo" placeholder="Post a New ToDo Item"/>
-        <button type="submit">Submit</button>
+        <button type="submit" value="test">Submit</button>
       </form>
+      <h3>Completed Items:</h3>
       <div class = "done">
-        <h3>Completed Items:</h3>
         {{#todos}}
           {{#complete}}
           <p class="completed-items">{{name}}</p>
@@ -30,6 +34,6 @@
         {{/todos}}
       </div>
     </main>
-    <script src="/main.js"></script>
+
   </body>
 </html>

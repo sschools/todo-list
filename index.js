@@ -12,14 +12,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
-const todos = [
-  {name: "Wash the car", complete: false},
-  {name: "Paint House", complete: true},
-  {name: "wash dog", complete: false}
-];
+const todos = [];
 
 app.get("/", function (request, respond) {
   respond.render("index", { todos: todos });
+});
+
+app.post("/change/:name", function (request, respond) {
+  for (var i = 0; i < todos.length; i++) {
+    if (todos[i].name === request.body.done) {
+      todos[i].complete = true;
+    }
+  }
+  respond.redirect("/");
 });
 
 app.post("/", function (request, respond) {
