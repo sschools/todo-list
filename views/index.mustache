@@ -14,9 +14,8 @@
         {{#todos}}
           {{^complete}}
           <form action="/change/{{name}}" method="post" class="todoForm">
-            
             <label for="done">{{name}}</label>
-            <button type="submit" name="done" value={{name}}>Done</button>
+            <button type="submit" name="done" value="{{name}}">Done</button>
           </form>
           {{/complete}}
         {{/todos}}

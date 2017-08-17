@@ -3,6 +3,9 @@ const app = express();
 const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 const mustacheExpress = require("mustache-express");
+const todoDal = require("./dal");
+
+let todos = require("./list");
 
 app.engine("mustache", mustacheExpress());
 app.set("view engine", "mustache");
@@ -12,23 +15,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
-const todos = [];
+
 
 app.get("/", function (request, respond) {
   respond.render("index", { todos: todos });
 });
 
 app.post("/change/:name", function (request, respond) {
-  for (var i = 0; i < todos.length; i++) {
-    if (todos[i].name === request.body.done) {
-      todos[i].complete = true;
-    }
-  }
+  todos = todoDal.markComplete(request.body.done);
   respond.redirect("/");
 });
 
 app.post("/", function (request, respond) {
-  todos.push({"name":request.body.todo, "complete": false});
+  todos = todoDal.addItem(request.body.todo);
   respond.redirect("/");
 });
 
