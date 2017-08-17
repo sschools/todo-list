@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 const mustacheExpress = require("mustache-express");
 const todoDal = require("./dal");
+const baseRoutes = require("./routes");
 
 let todos = require("./list");
 
@@ -15,21 +16,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
-
-
-app.get("/", function (request, respond) {
-  respond.render("index", { todos: todos });
-});
-
 app.post("/change/:name", function (request, respond) {
   todos = todoDal.markComplete(request.body.done);
   respond.redirect("/");
 });
 
-app.post("/", function (request, respond) {
-  todos = todoDal.addItem(request.body.todo);
-  respond.redirect("/");
-});
+app.use("/", baseRoutes);
 
 app.listen(3000, function () {
   console.log("Successfully started to do list.");
